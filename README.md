@@ -1,2 +1,2 @@
 # linker_telop_sdk
-glove telop dexhand repo
+glove telop dexhand reposss
