@@ -1,0 +1,8 @@
+prefix=/home/nx/project/retarget_ws/linkerhand_retarget_ros/install
+
+Name: ros_linkerhand_retarget
+Description: Description of ros_linkerhand_retarget
+Version: 1.0.3
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs rospy

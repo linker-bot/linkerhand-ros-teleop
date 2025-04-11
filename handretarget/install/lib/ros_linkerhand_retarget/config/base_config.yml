@@ -1,0 +1,34 @@
+udp:
+  ip: 192.168.11.130
+  port: 7000
+  serverport: 5551
+humanset:
+  bodyfile: body_unity_pose
+  targethandfile: human_hand_info
+system:
+  usecan: false
+  usegui: false
+  usenetpub: false
+  useudp: true
+  useudpserver: true
+  usesapien: false
+  sapientype: right
+  can:
+    id: 40
+    bitrate: 1000000
+    dofs: 25
+  robotname_r: t25
+  robotname_l: l20
+  retargeting_type: projection
+  datasource_type: motion
+  motion_type: udexreal
+  motion_device: eric
+  rightpub: true
+  leftpub: true
+debug:
+  joint_pub_debug: false
+  joint_motor_debug_r: false
+  joint_motor_debug_l: false
+netpub:
+  ip: 192.168.11.33
+  port: 20008

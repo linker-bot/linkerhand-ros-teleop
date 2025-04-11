@@ -1,0 +1,43 @@
+offset:
+  basemov_y_r: -0.022
+  basezoom_y_r: 0.6
+  basemov_x_r: 0.06
+  basemov_z_r: 0.02
+  # L20_8 偏移参数
+  trumbfingermove_x_r: 0
+  trumbfingermove_y_r: 0.02
+  trumbfingermove_z_r: 0.02
+  indexfingermove_x_r: 0
+  indexfingermove_y_r: 0
+  indexfingermove_z_r: 0.05
+  middlefingermove_x_r: 0
+  middlefingermove_y_r: 0
+  middlefingermove_z_r: 0.05
+  ringfingermove_x_r: -0
+  ringfingermove_y_r: 0
+  ringfingermove_z_r: 0.05
+  littlefingermove_x_r: -0
+  littlefingermove_y_r: -0
+  littlefingermove_z_r: 0.05
+  # L18_2 偏移参数
+  trumbfingermove_x_l: 0
+  trumbfingermove_y_l: 0
+  trumbfingermove_z_l: 0
+  indexfingermove_x_l: 0
+  indexfingermove_y_l: 0
+  indexfingermove_z_l: 0
+  middlefingermove_x_l: 0
+  middlefingermove_y_l: 0
+  middlefingermove_z_l: 0
+  ringfingermove_x_l: 0
+  ringfingermove_y_l: 0
+  ringfingermove_z_l: -0
+intervalset:
+  indexfinger_y_r: [0,0.2]
+  middlefinger_y_r: [0.2,0.4]
+  ringfinger_y_r: [-0.2,0]
+  littlefinger_y_r: [-1,-0.2]
+limitset:
+  trumb_x_r: 0.03
+  trumb_y_r: 0.03
+  trumb_z_r: 0.03
