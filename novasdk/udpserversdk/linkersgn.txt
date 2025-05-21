@@ -1,0 +1,117 @@
+
+
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+#include "include/SenseGlove/Connect/SGConnect.hpp"
+#include "include/SenseGlove/Core/Debugger.hpp"
+#include "include/SenseGlove/Core/Library.hpp"
+#include "include/SenseGlove/Core/SenseCom.hpp"
+
+#include "include/SenseGlove/Core/HandLayer.hpp"
+
+#include "include/SenseGlove/Core/HandPose.hpp"
+#include "include/SenseGlove/Core/Quat.hpp"
+#include "include/SenseGlove/Core/Vect3D.hpp"
+
+#include "include/SenseGlove/Core/HapticGlove.hpp"
+#include "include/SenseGlove/Core/StringUtils.hpp"
+#include "include/SenseGlove/Core/Tracking.hpp"
+
+#include "include/SenseGlove/Core/Tracking.hpp"
+
+using namespace SGCore;
+using namespace SGCore::Kinematics;
+
+void delay(int milliseconds) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
+
+int32_t main()
+{
+    // 初始化，加载版本号
+    std::cout << ("Nova核心包版本号: " + SGCore::Library::Version() + ", 最新版本号: " + SGCore::Library::BackendVersion());
+    if (SGCore::Library::GetBackendType() == SGCore::EBackendType::SharedMemory) // By default, your library will be compiled to use Shared Memory via the SGConnect library
+    {
+        std::cout << (" using " + SGCore::Library::SGConnectVersion()); // If you replace SGConnect.dll, this will give you its current version number.
+    }
+    std::cout << std::endl;
+    std::cout << ("The source code for this program is located in the SGCoreCs/test/ folder.") << std::endl;
+    std::cout << ("=========================================================================") << std::endl;
+
+    // 连接SenseCom软件
+    {
+        bool connectionsActive = SGCore::SenseCom::ScanningActive(); // returns true if SenseCom (or another program) has started the SenseGlove Communications Process.
+        if (!connectionsActive)                                      // If this process is not running yet, we can "Force-Start" SenseCom. Provided it has run on this PC at least once.
+        {
+            std::cout << ("SenseCom is not yet running. Without it, we cannot connect to SenseGlove devices.") << std::endl;
+            bool startedSenseCom = SGCore::SenseCom::StartupSenseCom(); // Returns true if the process was started.
+            if (startedSenseCom)
+            {
+                std::cout << ("Successfully started SenseCom. It will take a few seconds to connect...") << std::endl;
+                connectionsActive = SGCore::SenseCom::ScanningActive(); // this will return false immedeately after you called StartupSenseCom(). Because the program has yet to initialize.
+                //  Even if SenseCom started and the connections process is active, there's no guarantee that the user has turned their device(s) on. More on that later.
+            }
+            else // If StartupSenseCom() returns false, you've either never run SenseCom, or it is already running. But at that point, the ScanningActive() should have returned true.
+            {
+                std::cout << ("Could not Start the SenseCom process.") << std::endl;
+            }
+            std::cout << ("-------------------------------------------------------------------------") << std::endl;
+        }
+    }
+
+    // 连接设备
+    {
+        int32_t gloveAmount = HandLayer::GlovesConnected(); // GlovesConnected gives you the amount of gloves connected to your system.
+        while (gloveAmount == 0)                            // For this exercise, I'll keep trying to connect to a glove.
+        {
+            std::cout << ("Failed to Detect a Haptic Glove on your System. Please ensure your device is paired or connected via USB.") << std::endl;
+            std::cout << ("Press Return to try again...") << std::endl;
+            system("pause");
+            gloveAmount = HandLayer::GlovesConnected();
+        }
+
+        // When we get here, we've got one glove connected. Yay.
+
+        if (gloveAmount == 1)
+        {
+            std::cout << ("There is 1 Haptic Glove connected to your system.") << std::endl;
+            bool rightHand = HandLayer::GetFirstGloveHandedness();
+            std::cout << "It is a ";
+            std::cout << (rightHand ? "Right" : "Left");
+            std::cout << " handed glove of type " + SGDevice::ToString(HandLayer::GetDeviceType(rightHand)) << std::endl;
+        }
+        else
+        {
+            std::cout << ("There are " + std::to_string(gloveAmount) + " Haptic Gloves connected to your system.") << std::endl;
+
+            if (HandLayer::DeviceConnected(true))
+            {
+                std::cout << ("The right hand is a " + SGDevice::ToString(HandLayer::GetDeviceType(true))) << std::endl;
+            }
+            else
+            {
+                std::cout << ("There is no right hand connected.") << std::endl;
+            }
+
+            if (HandLayer::DeviceConnected(false))
+            {
+                std::cout << ("The left hand is a " + SGDevice::ToString(HandLayer::GetDeviceType(false))) << std::endl;
+            }
+            else
+            {
+                std::cout << ("There is no left hand connected.") << std::endl;
+            }
+        }
+        std::cout << ("-------------------------------------------------------------------------") << std::endl;
+    }
+    {
+        bool rightHand = true;
+        while (true)
+        {
+            
+        }
+
+    }
+}
