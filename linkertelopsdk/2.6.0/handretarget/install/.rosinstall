@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/nx/project/retarget_ws/linkerhand_retarget_ros/install/setup.sh
