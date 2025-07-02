@@ -13,8 +13,8 @@
 ### 下载地址
 
 1. 重定向系统程序地址:
-   ROS1:[点此跳转]https://github.com/linkerbotai/linker_telop_sdk/tree/main/linkertelopsdk/ros1/install)
-   ROS2:[点此跳转]https://github.com/linkerbotai/linker_telop_sdk/tree/main/linkertelopsdk/ros2/install)
+   ROS1:[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/tree/main/linkertelopsdk/ros1/install)
+   ROS2:[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/tree/main/linkertelopsdk/ros2/install)
 2. linkerhand核心whl离线包地址
    Linux_x64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/whl/linkerhand-2.6.3-cp38-cp38-linux_x86_64.whl)
    Linux_arm64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/whl/linkerhand-2.6.3-cp38-cp38-linux_aarch64.whl)
@@ -41,11 +41,18 @@ pip install linkerhand-2.6.3-cp38-cp38-linux_aarch64.whl
 
 ### 安装遥操重定向程序
 
-复制到Ubuntu系统中，在该目录下分别执行以下内容
+复制到Ubuntu系统中，在该目录下分别执行以下内容（ROS1版）
 
 ```
 source install/setup.bash
 rosrun ros_linkerhand_retarget handretarget.py
+```
+
+复制到Ubuntu系统中，在该目录下分别执行以下内容（ROS2版）
+
+```
+source install/setup.bash
+ros2 run linkerhand_retarget handretarget
 ```
 
 运行途中可能存在因为包的版本不对导致报错的可能，尤其是scipy，树莓派默认安装的是1.4.x版本，而我们需要更新到1.10.1版本，则执行以下指令，则可以把系统中的scipy卸载并安装到用户系统中
@@ -63,12 +70,20 @@ chmod 777 -R *
 
 ### 程序配置
 
-该目录输入ls命令后应该可以看到install目录，程序配置相关的内容在该目录下的相对路径
+该目录输入ls命令后应该可以看到install目录，程序配置相关的内容在该目录下的相对路径（ROS1版）
 
 ```
 cd install/lib/ros_linkerhand_retarget/config/
 ls -1
 ```
+
+该目录输入ls命令后应该可以看到install目录，程序配置相关的内容在该目录下的相对路径（ROS2版）
+
+```
+cd install/linkerhand_retarget/share/linkerhand_retarget/config/
+ls -1
+```
+
 
 输入以上命令后正常应该进入config的目录，ls -1后即可看到以下清单
 
@@ -110,6 +125,7 @@ speed_config.yml
 * LinkerHand\_L10系列的手要配置成:l10
 * LinkerHand\_L20系列的手要配置成:l20
 * LinkerHand\_O7系列的手要配置成:o7
+* LinkerHand\_L7系列的手要配置成:l7
 * LinkerHand\_T25系列的手要配置成:t25
 * LinkerHand\_L25系列的手要配置成:l25
 * LinkerHand\_L16系列的手要配置成:l16
