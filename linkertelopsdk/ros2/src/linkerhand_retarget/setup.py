@@ -21,10 +21,9 @@ for dirpath, dirnames, filenames in os.walk(rescoure_dir):
 
 setup(
     name=package_name,
-    version='0.0.1',
+    version='2.6.3',
     packages=packages,
     package_dir={'': '.'},  # 从当前目录搜索Python包
-    # 排除资源文件从Python包
     include_package_data=True,  # 关键！启用非Python文件包含
     package_data={
         'linkerhand_retarget': [
@@ -32,7 +31,12 @@ setup(
         ],
     },
     # ROS2安装配置
-    data_files = data_files,
+    data_files=[
+        ('share/ament_index/resource_index/packages', ['resource/linkerhand_retarget']),
+        ('share/linkerhand_retarget', ['package.xml']),
+        ('share/linkerhand_retarget/assets', glob('assets/*')),
+        ('share/linkerhand_retarget/config', glob('config/*')),
+    ],
     zip_safe=False,
     install_requires=['setuptools'],
     entry_points={
