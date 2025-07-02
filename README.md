@@ -4,7 +4,7 @@
 
 本系统由两部分组成，以基于linkerhand核心包和重定向程序两部分组成，其中核心包主要收集了跟遥操手套的连接办法，协议处理，数据算法解析等
 
-重定向程序是基于ROS1开发的，由一个节点和两个publisher的话题组成
+重定向程序是基于ROS1和ROS2开发的，由一个节点和两个publisher的话题组成
 
 手套标定软件通过UDP协议进行数据推送到重定向程序
 
@@ -12,7 +12,9 @@
 
 ### 下载地址
 
-1. 重定向系统程序[下载](https://github.com/linkerbotai/linker_telop_sdk/tree/main/handretarget)地址
+1. 重定向系统程序地址:
+   ROS1:[点此跳转]https://github.com/linkerbotai/linker_telop_sdk/tree/main/linkertelopsdk/ros1/install)
+   ROS2:[点此跳转]https://github.com/linkerbotai/linker_telop_sdk/tree/main/linkertelopsdk/ros2/install)
 2. linkerhand核心whl离线包地址
    Linux_x64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/whl/linkerhand-2.6.3-cp38-cp38-linux_x86_64.whl)
    Linux_arm64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/whl/linkerhand-2.6.3-cp38-cp38-linux_aarch64.whl)
