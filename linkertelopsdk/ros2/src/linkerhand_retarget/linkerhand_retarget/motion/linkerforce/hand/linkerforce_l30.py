@@ -13,41 +13,50 @@ class RightHand:
         self.handcore = handcore
 
     def joint_update(self, joint_arc):
-        qpos = np.zeros(25)
-        qpos[15] = joint_arc[3] * -2.5  # 侧摆
-        qpos[16] = joint_arc[20] * -2.6  # 旋转 
-        qpos[17] = joint_arc[2] * -0.2  # 根部关节
-        qpos[18] = joint_arc[1] * -1.5  # 中部关节
-        qpos[19] = joint_arc[0] * -1.5  # 远端关节
+        joint_degreeranges = [
+                            [0, 40],       # 大拇指侧摆
+                            [0, 80],       # 拇指旋转
+                            [0, 70],       # 拇指弯曲
+                            [0, 60],       # 拇指指尖
+                            [-10, 10],     # 食指侧摆
+                            [0, 80],       # 食指指根弯曲
+                            [0, 80],       # 食指指尖
+                            [-10, 10],     # 中指侧摆
+                            [0, 80],       # 中指指根
+                            [0, 80],       # 中指指尖
+                            [-10, 10],     # 无名指侧摆
+                            [0, 80],       # 无名指指根
+                            [0, 80],       # 无名指指尖
+                            [-10, 10],     # 小指侧摆
+                            [0, 80],       # 小指指根
+                            [0, 80],       # 小指指尖
+                            [-50, 50]      # 手腕
+                        ]
 
-        qpos[0] = joint_arc[7]
-        qpos[1] = joint_arc[6] * -1
-        qpos[2] = joint_arc[5] * -1
-        qpos[3] = joint_arc[4] * -1
-        if joint_arc[6] > -80 * 3.14 / 180: qpos[2] = 0
-        if joint_arc[6] > -80 * 3.14 / 180: qpos[3] = 0
+        qpos = np.zeros(17)
+        qpos[0] = joint_arc[20]
+        qpos[1] = joint_arc[20] * 2
+        qpos[2] = joint_arc[2] * -1
+        qpos[3] = joint_arc[0] * -1
 
-        qpos[4] = joint_arc[19]
-        qpos[5] = joint_arc[18] * -1
-        qpos[6] = joint_arc[17] * -1
-        qpos[7] = joint_arc[16] * -1
-        if joint_arc[18] > -75 * 3.14 / 180: qpos[6] = 0
-        if joint_arc[18] > -75 * 3.14 / 180: qpos[7] = 0
+        qpos[4] = joint_arc[7] * -1
+        qpos[5] = joint_arc[6] * -1
+        qpos[6] = joint_arc[4] * -1
 
-        qpos[20] = joint_arc[11]
+        qpos[7] = joint_arc[11] * -1
         qpos[8] = joint_arc[10] * -1
-        qpos[9] = joint_arc[9] * -1
-        qpos[10] = joint_arc[8] * -1
-        if joint_arc[10] > -80 * 3.14 / 180: qpos[9] = 0
-        if joint_arc[10] > -80 * 3.14 / 180: qpos[10] = 0
+        qpos[9] = joint_arc[8] * -1
 
-        qpos[11] = joint_arc[15]
-        qpos[12] = joint_arc[14] * -1
-        qpos[13] = joint_arc[13] * -1
-        qpos[14] = joint_arc[12] * -1
-        if joint_arc[14] > -80 * 3.14 / 180: qpos[13] = 0
-        if joint_arc[14] > -80 * 3.14 / 180: qpos[14] = 0
-        self.g_jointpositions = self.handcore.trans_to_motor_right(qpos)
+        qpos[10] = joint_arc[15] * -1
+        qpos[11] = joint_arc[14] * -1
+        qpos[12] = joint_arc[12] * -1
+
+        qpos[13] = joint_arc[19] * -1
+        qpos[14] = joint_arc[18] * -1
+        qpos[15] = joint_arc[16] * -1
+
+        qpos[16] = 0
+        self.g_jointpositions = np.rad2deg(qpos)
 
     def speed_update(self):
         for i in range(len(self.g_jointpositions)):
@@ -107,46 +116,50 @@ class LeftHand:
         self.handcore = handcore
 
     def joint_update(self, joint_arc):
-        qpos = np.zeros(25)
-        qpos[15] = joint_arc[3] * 2.5  # 侧摆
-        qpos[16] = joint_arc[20] * 2.6  # 旋转 
-        qpos[17] = joint_arc[2] * 0.2  # 根部关节
-        qpos[18] = joint_arc[1] * 1.5  # 中部关节
-        qpos[19] = joint_arc[0] * 1.5  # 远端关节
+        joint_degreeranges = [
+                            [0, 40],       # 大拇指侧摆
+                            [0, 80],       # 拇指旋转
+                            [0, 70],       # 拇指弯曲
+                            [0, 60],       # 拇指指尖
+                            [-10, 10],     # 食指侧摆
+                            [0, 80],       # 食指指根弯曲
+                            [0, 80],       # 食指指尖
+                            [-10, 10],     # 中指侧摆
+                            [0, 80],       # 中指指根
+                            [0, 80],       # 中指指尖
+                            [-10, 10],     # 无名指侧摆
+                            [0, 80],       # 无名指指根
+                            [0, 80],       # 无名指指尖
+                            [-10, 10],     # 小指侧摆
+                            [0, 80],       # 小指指根
+                            [0, 80],       # 小指指尖
+                            [-50, 50]      # 手腕
+                        ]
 
-        # 食指 index
-        qpos[0] = joint_arc[7] * -1
-        qpos[1] = joint_arc[6] * -1
-        qpos[2] = joint_arc[5] * -1
-        qpos[3] = joint_arc[4] * -1
-        if joint_arc[6] > -80 * 3.14 / 180: qpos[2] = 0
-        if joint_arc[6] > -80 * 3.14 / 180: qpos[3] = 0
+        qpos = np.zeros(17)
+        qpos[0] = joint_arc[20]
+        qpos[1] = joint_arc[20] * 2
+        qpos[2] = joint_arc[2] * -1
+        qpos[3] = joint_arc[0] * -1
 
-        # 小指 little
-        qpos[4] = joint_arc[19] * -1
-        qpos[5] = joint_arc[18] * -1
-        qpos[6] = joint_arc[17] * -1
-        qpos[7] = joint_arc[16] * -1
-        if joint_arc[18] > -75 * 3.14 / 180: qpos[6] = 0
-        if joint_arc[18] > -75 * 3.14 / 180: qpos[7] = 0
+        qpos[4] = joint_arc[7] * -1
+        qpos[5] = joint_arc[6] * -1
+        qpos[6] = joint_arc[4] * -1
 
-        # 中指 middle
-        qpos[20] = joint_arc[11] * 0
-        qpos[8] = joint_arc[10] * -2
-        qpos[9] = joint_arc[9] * -1
-        qpos[10] = joint_arc[8] * -1
-        if joint_arc[10] > -80 * 3.14 / 180: qpos[9] = 0
-        if joint_arc[10] > -80 * 3.14 / 180: qpos[10] = 0
+        qpos[7] = joint_arc[11] * -1
+        qpos[8] = joint_arc[10] * -1
+        qpos[9] = joint_arc[8] * -1
 
-        # 无名指 ring
-        qpos[11] = joint_arc[15] * -1
-        qpos[12] = joint_arc[14] * -1  # gen 
-        qpos[13] = joint_arc[13] * -1  # zhong
-        qpos[14] = joint_arc[12] * -1
-        if joint_arc[14] > -80 * 3.14 / 180: qpos[13] = 0
-        if joint_arc[14] > -80 * 3.14 / 180: qpos[14] = 0
+        qpos[10] = joint_arc[15] * -1
+        qpos[11] = joint_arc[14] * -1
+        qpos[12] = joint_arc[12] * -1
 
-        self.g_jointpositions = self.handcore.trans_to_motor_left(qpos)
+        qpos[13] = joint_arc[19] * -1
+        qpos[14] = joint_arc[18] * -1
+        qpos[15] = joint_arc[16] * -1
+
+        qpos[16] = 0
+        self.g_jointpositions = np.rad2deg(qpos)
 
     def speed_update(self):
         for i in range(len(self.g_jointpositions)):

@@ -1,16 +1,17 @@
 import numpy as np
+from linkerhand.handcore import HandCore
 
 
 class RightHand:
-    def __init__(self, length=10):
+    def __init__(self, handcore: HandCore, length=10):
         self.g_jointpositions = [255] * length
         self.g_jointvelocity = [255] * length
         self.last_jointpositions = [255] * length
         self.last_jointvelocity = [255] * length
         self.handstate = [0] * length
+        self.handcore = handcore
 
-    @staticmethod
-    def joint_update(joint_arc) -> np.ndarray:
+    def joint_update(self, joint_arc):
         qpos = np.zeros(25)
         qpos[15] = joint_arc[20] * 1  # 侧摆
         qpos[16] = joint_arc[20] * 2.2144  # 旋转
@@ -37,7 +38,7 @@ class RightHand:
         qpos[12] = joint_arc[14] * -1.0098
         qpos[13] = joint_arc[13] * -1
         qpos[14] = joint_arc[12] * -1
-        return qpos
+        self.g_jointpositions = self.handcore.trans_to_motor_right(qpos)
 
     def speed_update(self):
         for i in range(len(self.g_jointpositions)):
@@ -90,15 +91,15 @@ class RightHand:
 
 
 class LeftHand:
-    def __init__(self, length=10):
+    def __init__(self, handcore: HandCore, length=10):
         self.g_jointpositions = [255] * length
         self.g_jointvelocity = [255] * length
         self.last_jointpositions = [255] * length
         self.last_jointvelocity = [255] * length
         self.handstate = [0] * length
+        self.handcore = handcore
 
-    @staticmethod
-    def joint_update(joint_arc) -> np.ndarray:
+    def joint_update(self, joint_arc):
         qpos = np.zeros(25)
         qpos[15] = joint_arc[20] * 1  # 侧摆
         qpos[16] = joint_arc[20] * 2.2144 # 旋转
@@ -129,7 +130,7 @@ class LeftHand:
         qpos[13] = joint_arc[13] * -1  # zhong
         qpos[14] = joint_arc[12] * -1
 
-        return qpos
+        self.g_jointpositions = self.handcore.trans_to_motor_left(qpos)
 
     def speed_update(self):
         for i in range(len(self.g_jointpositions)):

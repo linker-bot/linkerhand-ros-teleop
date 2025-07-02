@@ -7,11 +7,10 @@ from linkerhand.constants import RobotName, ROBOT_LEN_MAP
 from linkerhand.handcore import HandCore
 
 
-class Retarget(Node):
-    def __init__(self, ip, port, deviceid, lefthand: RobotName, righthand: RobotName, handcore: HandCore,
+class Retarget():
+    def __init__(self,node, ip, port, deviceid, lefthand: RobotName, righthand: RobotName, handcore: HandCore,
                 lefthandpubprint: bool, righthandpubprint: bool):
-        super().__init__('retarget_node')
-        
+        self.node = node
         self.udp_ip = ip
         self.udp_port = port
         self.motion_device = deviceid
@@ -24,62 +23,62 @@ class Retarget(Node):
         
         # 根据右手类型初始化
         if self.righthandtype == RobotName.o7:
-            from .hand.udexreal_o7 import RightHand
-            self.righthand = RightHand(length=ROBOT_LEN_MAP[righthand])
+            from .hand.udexreal_l7 import RightHand
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l25:
             from .hand.udexreal_l25 import RightHand
-            self.righthand = RightHand(length=ROBOT_LEN_MAP[righthand])
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.t25:
             from .hand.udexreal_t25 import RightHand
-            self.righthand = RightHand(length=ROBOT_LEN_MAP[righthand])
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l20:
             from .hand.udexreal_l20 import RightHand
-            self.righthand = RightHand(length=ROBOT_LEN_MAP[righthand])
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l10:
             from .hand.udexreal_l10 import RightHand
-            self.righthand = RightHand(length=ROBOT_LEN_MAP[righthand])
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l21:
             from .hand.udexreal_l21 import RightHand
-            self.righthand = RightHand(length=ROBOT_LEN_MAP[righthand])
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l30:
             from .hand.udexreal_l30 import RightHand
-            self.righthand = RightHand(length=ROBOT_LEN_MAP[righthand])
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
 
         # 根据左手类型初始化
         if self.lefthandtype == RobotName.o7:
-            from .hand.udexreal_o7 import LeftHand
-            self.lefthand = LeftHand(length=ROBOT_LEN_MAP[lefthand])
+            from .hand.udexreal_l7 import LeftHand
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l25:
             from .hand.udexreal_l25 import LeftHand
-            self.lefthand = LeftHand(length=ROBOT_LEN_MAP[lefthand])
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.t25:
             from .hand.udexreal_t25 import LeftHand
-            self.lefthand = LeftHand(length=ROBOT_LEN_MAP[lefthand])
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l20:
             from .hand.udexreal_l20 import LeftHand
-            self.lefthand = LeftHand(length=ROBOT_LEN_MAP[lefthand])
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l10:
             from .hand.udexreal_l10 import LeftHand
-            self.lefthand = LeftHand(length=ROBOT_LEN_MAP[lefthand])
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l21:
             from .hand.udexreal_l21 import LeftHand
-            self.lefthand = LeftHand(length=ROBOT_LEN_MAP[lefthand])
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l30:
             from .hand.udexreal_l30 import LeftHand
-            self.lefthand = LeftHand(length=ROBOT_LEN_MAP[lefthand])
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
 
         # ROS2 发布器
-        self.publisher_r = self.create_publisher(
+        self.publisher_r = self.node.create_publisher(
             JointState,
             '/cb_right_hand_control_cmd',
             self.handcore.hand_numjoints_r)
             
-        self.publisher_l = self.create_publisher(
+        self.publisher_l = self.node.create_publisher(
             JointState,
             '/cb_left_hand_control_cmd',
             self.handcore.hand_numjoints_l)
             
-        self.timer = self.create_timer(1.0/120, self.process_callback)  # 120Hz
+        self.timer = self.node.create_timer(1.0/120, self.process_callback)  # 120Hz
         self.pubprintcount = 0
         self.udp_datacapture = None
 
@@ -91,20 +90,14 @@ class Retarget(Node):
             device_id=self.motion_device)
         return self.udp_datacapture.udp_initial()
     
-    def destroy_node(self):
-        """重写销毁方法"""
-        if self.udp_datacapture:
-            self.udp_datacapture.udp_close()  # 关闭UDP连接
-        super().destroy_node()
 
     def process_callback(self):
         if not self.runing:
-            self.destroy_node()
             return
         
         """定时器回调函数，处理数据并发布"""
         if not self.udp_datacapture or not self.udp_datacapture.udp_is_onnect():
-            self.get_logger().warning("侦测到UDP断开状态，正在重连！")
+            self.node.get_logger().warning("侦测到UDP断开状态，正在重连！")
             if not self.initialize_udp():
                 self.get_logger().error("UDP重连失败")
                 return
@@ -116,12 +109,8 @@ class Retarget(Node):
             return
 
         # 处理左右手原始数据
-        joint_l = self.lefthand.joint_update(mocapdata.jointangle_lHand)
-        joint_r = self.righthand.joint_update(mocapdata.jointangle_rHand)
-
-        # 重定向到电机数据
-        self.lefthand.g_jointpositions = self.handcore.trans_to_motor_left(joint_l)
-        self.righthand.g_jointpositions = self.handcore.trans_to_motor_right(joint_r)
+        self.lefthand.joint_update(mocapdata.jointangle_lHand)
+        self.righthand.joint_update(mocapdata.jointangle_rHand)
 
         # 速度环节处理
         self.lefthand.speed_update()
@@ -129,13 +118,13 @@ class Retarget(Node):
 
         # 调试打印
         if self.lefthandpubprint and self.pubprintcount % 1 == 0:
-            self.get_logger().info(f"左手位置: {self.lefthand.g_jointpositions}")
+            self.node.get_logger().info(f"左手位置: {self.lefthand.g_jointpositions}")
         if self.righthandpubprint and self.pubprintcount % 1 == 0:
-            self.get_logger().info(f"右手位置: {self.righthand.g_jointpositions}")
+            self.node.get_logger().info(f"右手位置: {self.righthand.g_jointpositions}")
 
         # 发布右手数据
         msg_r = JointState()
-        msg_r.header.stamp = self.get_clock().now().to_msg()
+        msg_r.header.stamp = self.node.get_clock().now().to_msg()
         msg_r.name = [f'joint{i + 1}' for i in range(len(self.righthand.g_jointpositions))]
         msg_r.position = [float(num) for num in self.righthand.g_jointpositions]
         msg_r.velocity = [float(num) for num in self.righthand.g_jointvelocity]
@@ -143,7 +132,7 @@ class Retarget(Node):
 
         # 发布左手数据
         msg_l = JointState()
-        msg_l.header.stamp = self.get_clock().now().to_msg()
+        msg_l.header.stamp = self.node.get_clock().now().to_msg()
         msg_l.name = [f'joint{i + 1}' for i in range(len(self.lefthand.g_jointpositions))]
         msg_l.position = [float(num) for num in self.lefthand.g_jointpositions]
         msg_l.velocity = [float(num) for num in self.lefthand.g_jointvelocity]
@@ -157,4 +146,4 @@ class Retarget(Node):
             self.get_logger().error("初始化配置网络失败")
             return
 
-        rclpy.spin(self)
+        rclpy.spin(self.node)

@@ -107,10 +107,10 @@ class HandRetargetNode(Node):
         self.pubprintcount = 0
 
     def retargetrun(self):
-        sender = None
         if self.motion_type == MotionSource.udexreal:
             from linkerhand_retarget.motion.udexreal.retarget import Retarget
             self.retarget = Retarget(
+                self,
                 ip=self.retarget,
                 port=self.udp_port,
                 deviceid=self.motion_device,
@@ -123,6 +123,7 @@ class HandRetargetNode(Node):
         elif self.motion_type == MotionSource.linkerforce:
             from linkerhand_retarget.motion.linkerforce.retarget import Retarget
             self.retarget = Retarget(
+                self,
                 port=self.udp_port,
                 baudrate=self.motion_device,
                 righthand=self.robot_name_r,
