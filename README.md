@@ -1,4 +1,4 @@
-# 遥操重定向系统
+﻿# 遥操重定向系统
 
 ## 系统介绍
 
@@ -14,8 +14,8 @@
 
 1. 重定向系统程序[下载](https://github.com/linkerbotai/linker_telop_sdk/tree/main/handretarget)地址
 2. linkerhand核心whl离线包地址
-   Linux_x64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/2.6.1/whl/linkerhand-2.6.1-cp38-cp38-linux_x86_64.whl)
-   Linux_arm64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/2.6.1/whl/linkerhand-2.6.1-cp38-cp38-linux_aarch64.whl)
+   Linux_x64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/whl/linkerhand-2.6.3-cp38-cp38-linux_x86_64.whl)
+   Linux_arm64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/whl/linkerhand-2.6.3-cp38-cp38-linux_aarch64.whl)
 
 ### 安装核心包
 
@@ -34,7 +34,7 @@ pip uninstall linkerhand
 ```
 
 ```
-pip install linkerhand-2.5.7-cp38-cp38-linux_aarch64.whl
+pip install linkerhand-2.6.3-cp38-cp38-linux_aarch64.whl
 ```
 
 ### 安装遥操重定向程序
