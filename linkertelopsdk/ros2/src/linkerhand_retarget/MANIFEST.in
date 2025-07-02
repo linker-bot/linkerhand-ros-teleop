@@ -1,0 +1,3 @@
+recursive-include linkerhand_retarget/motion *
+recursive-include assets *
+recursive-include config *
