@@ -19,6 +19,27 @@
    Linux_x64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/whl/linkerhand-2.6.3-cp38-cp38-linux_x86_64.whl)
    Linux_arm64平台：[点此跳转](https://github.com/linkerbotai/linker_telop_sdk/blob/main/linkertelopsdk/whl/linkerhand-2.6.3-cp38-cp38-linux_aarch64.whl)
 
+### 准备工作
+
+我司在GITHUB开源了摇操重定向系统的SDK，可通过该程序连接手套设备，目前支持的设备有
+
+1、LINKERFORCE手套
+
+2、VTRDYN数据手套
+
+3、UDEXREAL手套
+
+4、NOVA数据手套
+
+其他厂家可咨询我司进行定制化开发
+
+可通过如下链接进行下载
+
+```
+git clone https://github.com/linkerbotai/linker_telop_sdk.git
+cd linkertelopsdk
+```
+
 ### 安装核心包
 
 核心包目前只开放了Ubuntu平台下的Arm64平台和x64平台
@@ -41,33 +62,29 @@ pip install linkerhand-2.6.3-cp38-cp38-linux_aarch64.whl
 
 ### 安装遥操重定向程序
 
-复制到Ubuntu系统中，在该目录下分别执行以下内容（ROS1版）
+在该目录下分别执行以下内容（ROS1版）
 
 ```
-source install/setup.bash
-rosrun ros_linkerhand_retarget handretarget.py
+catkin_make install
 ```
 
-复制到Ubuntu系统中，在该目录下分别执行以下内容（ROS2版）
+在该目录下分别执行以下内容（ROS2版）
 
 ```
-source install/setup.bash
-ros2 run linkerhand_retarget handretarget
+colcon build
 ```
 
-运行途中可能存在因为包的版本不对导致报错的可能，尤其是scipy，树莓派默认安装的是1.4.x版本，而我们需要更新到1.10.1版本，则执行以下指令，则可以把系统中的scipy卸载并安装到用户系统中
+```运行途中可能存在因为包的版本不对导致报错的可能，尤其是scipy，树莓派默认安装的是1.4.x版本，而我们需要更新到1.10.1版本，则执行以下指令，则可以把系统中的scipy卸载并安装到用户系统中
 
 ```
 sudo pip uninstall scipy
 pip install scipy==1.10.1``
 ```
-
 使用过程中可能会存在权限不足的问题导致无法运行，使用以下代码
 
 ```
 chmod 777 -R *
 ```
-
 ### 程序配置
 
 该目录输入ls命令后应该可以看到install目录，程序配置相关的内容在该目录下的相对路径（ROS1版）
@@ -76,15 +93,12 @@ chmod 777 -R *
 cd install/lib/ros_linkerhand_retarget/config/
 ls -1
 ```
-
 该目录输入ls命令后应该可以看到install目录，程序配置相关的内容在该目录下的相对路径（ROS2版）
 
 ```
 cd install/linkerhand_retarget/share/linkerhand_retarget/config/
 ls -1
 ```
-
-
 输入以上命令后正常应该进入config的目录，ls -1后即可看到以下清单
 
 ```
@@ -98,7 +112,6 @@ model_config.yml
 retarget_config.yml
 speed_config.yml
 ```
-
 其中我们要唯一修改的配置文件是base\_config.yml，其他配置文件均不可修改
 
 以下是针对base\_config.yml的配置内容展开进行介绍，
@@ -113,13 +126,12 @@ speed_config.yml
      port: 7000
      serverport: 5551
    ```
-
    如：mHandStudio.exe的UDP配置的是192.168.11.200，端口7000，相应的内容要替换成对应的地址和端口，同时System的useudp选项要保持为true
 2. 配置机械手类型
 
    ```
-     robotname_r: t25
-     robotname_l: t25
+     robotname_r: l10
+     robotname_l: l10
    ```
 
 * LinkerHand\_L10系列的手要配置成:l10
@@ -150,6 +162,7 @@ speed_config.yml
      motion_device: eric
    ```
 
-* motion\_type:使用UdexReal宇叠手套要设置为udexreal
-* motion\_type:使用Vtrdyn动捕手套要设置为vtrdyn
-* motion\_device:仅在UdexReal下可以激活使用，需要输入软件所对应的角色，用于绑定数据源
+* motion\_type:使用UDEXREALl宇叠手套要设置为udexreal
+* motion\_type:使用LINKERFORCE力反馈手套要设置为linkerforce
+* motion\_type:使用VTRDYN动捕手套要设置为vtrdyn
+* motion\_device:仅在UDEXREALl下可以激活使用，需要输入软件所对应的角色，用于绑定数据源
