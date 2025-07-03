@@ -74,17 +74,19 @@ catkin_make install
 colcon build
 ```
 
-```运行途中可能存在因为包的版本不对导致报错的可能，尤其是scipy，树莓派默认安装的是1.4.x版本，而我们需要更新到1.10.1版本，则执行以下指令，则可以把系统中的scipy卸载并安装到用户系统中
+运行途中可能存在因为包的版本不对导致报错的可能，尤其是scipy，树莓派默认安装的是1.4.x版本，而我们需要更新到1.10.1版本，则执行以下指令，则可以把系统中的scipy卸载并安装到用户系统中
 
 ```
 sudo pip uninstall scipy
 pip install scipy==1.10.1``
 ```
+
 使用过程中可能会存在权限不足的问题导致无法运行，使用以下代码
 
 ```
 chmod 777 -R *
 ```
+
 ### 程序配置
 
 该目录输入ls命令后应该可以看到install目录，程序配置相关的内容在该目录下的相对路径（ROS1版）
@@ -93,12 +95,14 @@ chmod 777 -R *
 cd install/lib/ros_linkerhand_retarget/config/
 ls -1
 ```
+
 该目录输入ls命令后应该可以看到install目录，程序配置相关的内容在该目录下的相对路径（ROS2版）
 
 ```
 cd install/linkerhand_retarget/share/linkerhand_retarget/config/
 ls -1
 ```
+
 输入以上命令后正常应该进入config的目录，ls -1后即可看到以下清单
 
 ```
@@ -112,6 +116,7 @@ model_config.yml
 retarget_config.yml
 speed_config.yml
 ```
+
 其中我们要唯一修改的配置文件是base\_config.yml，其他配置文件均不可修改
 
 以下是针对base\_config.yml的配置内容展开进行介绍，
@@ -126,6 +131,7 @@ speed_config.yml
      port: 7000
      serverport: 5551
    ```
+
    如：mHandStudio.exe的UDP配置的是192.168.11.200，端口7000，相应的内容要替换成对应的地址和端口，同时System的useudp选项要保持为true
 2. 配置机械手类型
 
