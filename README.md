@@ -8,7 +8,7 @@
 
 手套标定软件通过UDP协议进行数据推送到重定向程序
 
-本程序是基于Python3.8开发的，请准备好基于此系统的环境
+本程序是基于Python3.8开发的，请准备好基于此系统的环境(后续更新到pypi)
 
 ### 下载地址
 
@@ -72,6 +72,22 @@ catkin_make install
 
 ```
 colcon build
+```
+
+### 运行遥操重定向程序
+
+在该目录下分别执行以下内容（ROS1版）
+
+```
+source ./install/setup.bash 
+rosrun ros_linkerhand_retarget handretarget.py
+```
+
+在该目录下分别执行以下内容（ROS2版）
+
+```
+source ./install/setup.bash
+ros2 run linkerhand_retarget handretarget 
 ```
 
 运行途中可能存在因为包的版本不对导致报错的可能，尤其是scipy，树莓派默认安装的是1.4.x版本，而我们需要更新到1.10.1版本，则执行以下指令，则可以把系统中的scipy卸载并安装到用户系统中
