@@ -15,8 +15,6 @@ from linkerhand.vtrdyncore import *
 from linkerhand.handcore import HandCore
 from linkerhand.config import HandConfig
 from linkerhand.constants import RetargetingType, DataSource, MotionSource, RobotName
-from linkerhand.udexrealcore import UdexRealScoketUdp, UdexRealSData
-from linkerhand.linkerforce import ForceSerialReader
 
 import rospy
 from sensor_msgs.msg import JointState
@@ -84,9 +82,20 @@ class HandRetargetNode:
         
         self.pubprintcount = 0
 
-    def retargetrun(self):
+    def retargetrun(self,calibrate):
         sender = None
-        if self.motion_type == MotionSource.udexreal:
+        if self.motion_type == MotionSource.udexrealv1:
+            from motion.udexrealv1.retarget import Retarget
+            self.retarget = Retarget(ip=self.retarget,
+                                     port=self.udp_port,
+                                     deviceid=self.motion_device,
+                                     righthand=self.robot_name_r,
+                                     lefthand=self.robot_name_l,
+                                     handcore=self.handcore,
+                                     lefthandpubprint=self.lefthandprint,
+                                     righthandpubprint=self.righthandprint,
+                                     calibration = self.calibration)
+        elif self.motion_type == MotionSource.udexreal:
             from motion.udexreal.retarget import Retarget
             self.retarget = Retarget(ip=self.retarget,
                                      port=self.udp_port,
@@ -95,7 +104,8 @@ class HandRetargetNode:
                                      lefthand=self.robot_name_l,
                                      handcore=self.handcore,
                                      lefthandpubprint=self.lefthandprint,
-                                     righthandpubprint=self.righthandprint)
+                                     righthandpubprint=self.righthandprint,
+                                     calibration = self.calibration)
         elif self.motion_type == MotionSource.linkerforce:
             from motion.linkerforce.retarget import Retarget
             self.retarget = Retarget(port=self.udp_port,
@@ -104,7 +114,8 @@ class HandRetargetNode:
                                      lefthand=self.robot_name_l,
                                      handcore=self.handcore,
                                      lefthandpubprint=self.lefthandprint,
-                                     righthandpubprint=self.righthandprint)
+                                     righthandpubprint=self.righthandprint,
+                                     calibration = self.calibration)
         if self.retarget is None:
             print("未正确创建应用实例")
         else:
@@ -141,7 +152,9 @@ if __name__ == '__main__':
     try:
         signal.signal(signal.SIGINT, signal_handler)
         node = HandRetargetNode()
-        node.retargetrun()
+        calibrate = rospy.get_param('~calibrate', default=None)  # 默认获取全局参数
+        print(calibrate)
+        node.retargetrun(calibrate)
     except rospy.ROSInterruptException:
         print("this node is exit !")
         pass

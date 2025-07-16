@@ -1,5 +1,5 @@
 udp:
-  ip: 192.168.95.1
+  ip: 192.168.11.88
   port: 7000
   serverport: 5551
 humanset:
@@ -17,17 +17,17 @@ system:
     id: 40
     bitrate: 1000000
     dofs: 25
-  robotname_r: l21
+  robotname_r: l7
   robotname_l: l21
   retargeting_type: projection
   datasource_type: motion
-  motion_type: udexreal
+  motion_type: udexrealv1
   motion_device: eric
   rightpub: true
   leftpub: true
 debug:
   joint_pub_debug: false
-  joint_motor_debug_r: false
+  joint_motor_debug_r: true
   joint_motor_debug_l: false
 netpub:
   ip: 192.168.11.33
