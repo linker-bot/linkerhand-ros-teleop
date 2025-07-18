@@ -1,0 +1,10 @@
+loguru
+uvicorn
+fastapi
+pydantic
+pathlib
+anytree
+pybullet
+trimesh
+lxml
+anytree
