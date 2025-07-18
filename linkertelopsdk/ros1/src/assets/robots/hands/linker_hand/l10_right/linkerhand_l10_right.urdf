@@ -197,7 +197,7 @@
     <parent link="hand_base_link" />
     <child link="index_metacarpals" />
     <axis xyz="1 0 0" />
-    <limit lower="-0.36" upper="0.36" effort="12" velocity="2.6" />
+    <limit lower="-0.18" upper="0" effort="12" velocity="2.6" />
   </joint>
   <link name="index_proximal">
     <inertial>
@@ -404,7 +404,7 @@
     <parent link="hand_base_link" />
     <child link="ring_metacarpals" />
     <axis xyz="1 0 0" />
-    <limit lower="-0.36" upper="0.36" effort="12" velocity="2.6" />
+    <limit lower="0" upper="0.18" effort="12" velocity="2.6" />
   </joint>
   <link name="ring_proximal">
     <inertial>
@@ -522,7 +522,7 @@
     <parent link="hand_base_link" />
     <child link="pinky_metacarpals" />
     <axis xyz="1 0 0" />
-    <limit lower="-0.36" upper="0.36" effort="12" velocity="2.6" />
+    <limit lower="0" upper="0.36" effort="12" velocity="2.6" />
   </joint>
   <link name="pinky_proximal">
     <inertial>
