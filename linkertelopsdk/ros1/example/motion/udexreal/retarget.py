@@ -26,7 +26,10 @@ class Retarget:
         self.runing = True
         self.lefthandpubprint = lefthandpubprint
         self.righthandpubprint = righthandpubprint
-        if self.righthandtype == RobotName.l7:
+        if self.righthandtype == RobotName.o7 \
+            or self.righthandtype == RobotName.l7 \
+            or self.righthandtype == RobotName.o7v1 \
+            or self.righthandtype == RobotName.o7v2:
             from .hand.udexreal_l7 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.o7:
@@ -41,14 +44,19 @@ class Retarget:
         elif self.righthandtype == RobotName.l20:
             from .hand.udexreal_l20 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
-        elif self.righthandtype == RobotName.l10:
+        elif self.righthandtype == RobotName.l10 \
+            or self.righthandtype == RobotName.l10v6 \
+            or self.righthandtype == RobotName.l10v7 :
             from .hand.udexreal_l10 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l21:
             from .hand.udexreal_l21 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
 
-        if self.lefthandtype == RobotName.l7:
+        if self.lefthandtype == RobotName.o7 \
+            or self.lefthandtype == RobotName.l7 \
+            or self.lefthandtype == RobotName.o7v1 \
+            or self.lefthandtype == RobotName.o7v2:
             from .hand.udexreal_l7 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.o7:
@@ -63,7 +71,9 @@ class Retarget:
         elif self.lefthandtype == RobotName.l20:
             from .hand.udexreal_l20 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
-        elif self.lefthandtype == RobotName.l10:
+        elif self.lefthandtype == RobotName.l10 \
+            or self.lefthandtype == RobotName.l10v6 \
+            or self.lefthandtype == RobotName.l10v7 :
             from .hand.udexreal_l10 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l21:
