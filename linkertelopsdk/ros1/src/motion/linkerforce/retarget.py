@@ -38,43 +38,65 @@ class Retarget:
         # self.calibrationmiddleclose_r, self.calibrationmiddleclose_l = None, None
         # self.calibrationringclose_r, self.calibrationringclose_l = None, None
         # self.calibrationpinkyclose_r, self.calibrationpinkyclose_l = None, None
-        if self.righthandtype == RobotName.l7:
+
+        if self.righthandtype == RobotName.o7 \
+            or self.righthandtype == RobotName.l7 \
+            or self.righthandtype == RobotName.o7v1 \
+            or self.righthandtype == RobotName.o7v2:
             from .hand.linkerforce_l7 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
-        elif self.righthandtype == RobotName.l25:
-            from .hand.linkerforce_l25 import RightHand
+        elif self.righthandtype == RobotName.o7:
+            from .hand.linkerforce_l7 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
-        elif self.righthandtype == RobotName.t25:
-            from .hand.linkerforce_t25 import RightHand
-            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
+        # elif self.righthandtype == RobotName.l25:
+        #     from .hand.linkerforce_l25 import RightHand
+        #     self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
+        # elif self.righthandtype == RobotName.t25:
+        #     from .hand.linkerforce_t25 import RightHand
+        #     self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l20:
             from .hand.linkerforce_l20 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
-        elif self.righthandtype == RobotName.l10:
-            from .hand.linkerforce_l10 import RightHand
+        elif self.righthandtype == RobotName.l10v6 :
+            from .hand.linkerforce_l10v6 import LeftHand
+            self.righthand = LeftHand(handcore, length=ROBOT_LEN_MAP[righthand])        
+        elif self.righthandtype == RobotName.l10 \
+            or self.righthandtype == RobotName.l10v7 :
+            from .hand.linkerforce_l10v7 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l21:
             from .hand.linkerforce_l21 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
 
-        if self.lefthandtype == RobotName.l7:
+        if self.lefthandtype == RobotName.o7 \
+            or self.lefthandtype == RobotName.l7 \
+            or self.lefthandtype == RobotName.o7v1 \
+            or self.lefthandtype == RobotName.o7v2:
+            from .hand.linkerforce_l7 import LeftHand
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+        elif self.lefthandtype == RobotName.o7:
             from .hand.linkerforce_l7 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l25:
             from .hand.linkerforce_l25 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
-        elif self.lefthandtype == RobotName.t25:
-            from .hand.linkerforce_t25 import LeftHand
-            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+        # elif self.lefthandtype == RobotName.t25:
+        #     from .hand.linkerforce_t25 import LeftHand
+        #     self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l20:
             from .hand.linkerforce_l20 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
-        elif self.lefthandtype == RobotName.l10:
-            from .hand.linkerforce_l10 import LeftHand
+        elif self.lefthandtype == RobotName.l10v6 :
+            from .hand.linkerforce_l10v6 import LeftHand
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+        elif self.lefthandtype == RobotName.l10 \
+            or self.lefthandtype == RobotName.l10v7 :
+            from .hand.linkerforce_l10v7 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l21:
             from .hand.linkerforce_l21 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+            
         self.publisher_r = rospy.Publisher('/cb_right_hand_control_cmd', JointState, queue_size=self.handcore.hand_numjoints_r)
         self.publisher_l = rospy.Publisher('/cb_left_hand_control_cmd', JointState, queue_size=self.handcore.hand_numjoints_l)
         self.rate = rospy.Rate(120)

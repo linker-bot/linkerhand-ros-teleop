@@ -129,6 +129,7 @@ class LeftHand:
 
     def speed_update(self):
         for i in range(len(self.g_jointpositions)):
+            
             lastpos = self.last_jointpositions[i]
             position_error = int(abs(self.g_jointpositions[i] - lastpos))
             position_derict = 1 if self.g_jointpositions[i] - lastpos > 0 else -1

@@ -815,10 +815,10 @@
     <child
       link="ring_metacarpals" />
     <axis
-      xyz="-0.99996 0 0.0087265" />
+      xyz="0.99996 0 0.0087265" />
     <limit
-      lower="0"
-      upper="0.2181"
+      lower="-0.2181"
+      upper="0"
       effort="100"
       velocity="1" />
   </joint>
@@ -1055,10 +1055,10 @@
     <child
       link="pinky_metacarpals" />
     <axis
-      xyz="-0.99996 0 0.0087265" />
+      xyz="0.99996 0 0.0087265" />
     <limit
-      lower="0"
-      upper="0.3489"
+      lower="-0.3489"
+      upper="0"
       effort="100"
       velocity="1" />
   </joint>

@@ -36,10 +36,12 @@ class Retarget:
         elif self.righthandtype == RobotName.l20:
             from .hand.vtrdyn_l20 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
+        elif self.righthandtype == RobotName.l10v6 :
+            from .hand.vtrdyn_l10v6 import RightHand
+            self.righthand = LeftHand(handcore, length=ROBOT_LEN_MAP[righthand])        
         elif self.righthandtype == RobotName.l10 \
-            or self.righthandtype == RobotName.l10v6 \
             or self.righthandtype == RobotName.l10v7 :
-            from .hand.vtrdyn_l10 import RightHand
+            from .hand.vtrdyn_l10v7 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l21:
             from .hand.vtrdyn_l21 import RightHand
@@ -58,10 +60,12 @@ class Retarget:
         elif self.lefthandtype == RobotName.l20:
             from .hand.vtrdyn_l20 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+        elif self.lefthandtype == RobotName.l10v6 :
+            from .hand.vtrdyn_l10v6 import LeftHand
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l10 \
-            or self.lefthandtype == RobotName.l10v6 \
             or self.lefthandtype == RobotName.l10v7 :
-            from .hand.vtrdyn_l10 import LeftHand
+            from .hand.vtrdyn_l10v7 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l21:
             from .hand.vtrdyn_l21 import LeftHand

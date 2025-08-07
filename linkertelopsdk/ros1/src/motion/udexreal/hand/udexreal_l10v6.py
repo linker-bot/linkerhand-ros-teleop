@@ -18,7 +18,7 @@ class RightHand:
         qpos[18] = joint_arc[2] * -0.3878  # 根部关节
         qpos[19] = joint_arc[1] * -0.66845 # 中部关节
         qpos[20] = joint_arc[0] * -0.66845 # 远端关节
-
+        # print(qpos[16],qpos[17])
         qpos[0] = joint_arc[7]
         qpos[1] = joint_arc[6] * -1.0098
         qpos[2] = joint_arc[5] * -1
@@ -107,7 +107,7 @@ class LeftHand:
 
         # 食指 index
         qpos[0] = joint_arc[7] * -1
-        qpos[1] = joint_arc[6] * -0.8
+        qpos[1] = joint_arc[6] * -0.6
         qpos[2] = joint_arc[5] * -1
         qpos[3] = joint_arc[4] * -1
 
