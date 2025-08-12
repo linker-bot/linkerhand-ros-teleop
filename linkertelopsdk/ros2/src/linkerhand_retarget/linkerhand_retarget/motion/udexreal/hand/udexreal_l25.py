@@ -1,16 +1,15 @@
 import numpy as np
 from linkerhand.handcore import HandCore
 
-
 class RightHand:
     def __init__(self, handcore: HandCore, length=25):
+        self.handcore = handcore
         self.g_jointpositions = [255] * length
         self.g_jointvelocity = [255] * length
         self.last_jointpositions = [255] * length
         self.last_jointvelocity = [255] * length
         self.g_jointpositions[6:4] = [128, 128, 128, 128]
         self.handstate = [0] * length
-        self.handcore = handcore
 
     def joint_update(self, joint_arc):
         qpos = np.zeros(25)
@@ -102,13 +101,13 @@ class RightHand:
 
 class LeftHand:
     def __init__(self, handcore: HandCore, length=25):
+        self.handcore = handcore
         self.g_jointpositions = [255] * length
         self.g_jointvelocity = [255] * length
         self.last_jointpositions = [255] * length
         self.last_jointvelocity = [255] * length
         self.g_jointpositions[6:4] = [128, 128, 128, 128]
         self.handstate = [0] * length
-        self.handcore = handcore
 
     def joint_update(self, joint_arc):
         qpos = np.zeros(25)

@@ -14,8 +14,6 @@ from linkerhand.vtrdyncore import *
 from linkerhand.handcore import HandCore
 from linkerhand.config import HandConfig
 from linkerhand.constants import RetargetingType, DataSource, MotionSource, RobotName
-from linkerhand.udexrealcore import UdexRealScoketUdp, UdexRealSData
-from linkerhand.linkerforce import ForceSerialReader
 
 from ament_index_python.packages import get_package_share_directory
 from pathlib import Path
@@ -132,33 +130,24 @@ class HandRetargetNode(Node):
                 lefthandpubprint=self.lefthandprint,
                 righthandpubprint=self.righthandprint
             )
-        
+        elif self.motion_type == MotionSource.vtrdyn:
+            from linkerhand_retarget.motion.vtrdyn.retarget import Retarget
+            self.retarget = Retarget(
+                self,
+                ip=self.udp_ip,
+                port=self.udp_port,
+                righthand=self.robot_name_r,
+                lefthand=self.robot_name_l,
+                handcore=self.handcore,
+                lefthandpubprint=self.lefthandprint,
+                righthandpubprint=self.righthandprint,
+                calibration = self.calibration
+            )        
         if self.retarget is None:
             self.get_logger().error("未正确创建应用实例")
         else:
             self.get_logger().info("启动应用实例")
             self.retarget.process()
-
-    def vr_right_pose_callback(self, msg):
-        global vr_pose_cache_r
-        for pose in msg.poses:
-            vr_pose_cache_r = [pose.position.x, pose.position.y, pose.position.z]
-
-    def vr_left_pose_callback(self, msg):
-        global vr_pose_cache_l
-        for pose in msg.poses:
-            vr_pose_cache_l = [pose.position.x, pose.position.y, pose.position.z]
-
-    def video_right_pose_callback(self, msg):
-        global video_pose_cache_r
-        for pose in msg.poses:
-            video_pose_cache_r = [pose.position.x, pose.position.y, pose.position.z]
-
-    def video_left_pose_callback(self, msg):
-        global video_pose_cache_l
-        for pose in msg.poses:
-            video_pose_cache_l = [pose.position.x, pose.position.y, pose.position.z]
-
 
 def main(args=None):
     rclpy.init(args=args)

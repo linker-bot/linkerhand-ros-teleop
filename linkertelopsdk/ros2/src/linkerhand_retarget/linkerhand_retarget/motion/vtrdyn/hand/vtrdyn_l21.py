@@ -9,44 +9,36 @@ class RightHand:
         self.g_jointvelocity = [255] * length
         self.last_jointpositions = [255] * length
         self.last_jointvelocity = [255] * length
-        self.g_jointpositions[6:4] = [128, 128, 128, 128]
         self.handstate = [0] * length
 
     def joint_update(self, joint_arc):
         qpos = np.zeros(25)
-        qpos[16] = joint_arc[20] * 2    # 侧摆
-        qpos[17] = joint_arc[20] * 4    # 旋转 
-        qpos[18] = joint_arc[2] * -0.5  # 根部关节
-        qpos[19] = joint_arc[1] * -1  # 中部关节
-        qpos[20] = joint_arc[0] * -1  # 远端关节
 
-        qpos[0] = joint_arc[7] * -1
-        qpos[1] = joint_arc[6] * -0.9
-        qpos[2] = joint_arc[5] * -0.9
-        qpos[3] = joint_arc[4] * -1
-        # if joint_arc[6] > -80 * 3.14 / 180: qpos[2] = 0
-        # if joint_arc[6] > -80 * 3.14 / 180: qpos[3] = 0
+        qpos[16] = joint_arc[0]
+        qpos[17] = joint_arc[1] * 0.5
+        qpos[18] = joint_arc[2] * 0.5
+        qpos[19] = joint_arc[3]
+        qpos[20] = joint_arc[4]
 
-        qpos[4] = joint_arc[19] * -1
-        qpos[5] = joint_arc[18] * -0.9
-        qpos[6] = joint_arc[17] * -0.9
-        qpos[7] = joint_arc[16] * -1
-        # if joint_arc[18] > -75 * 3.14 / 180: qpos[6] = 0
-        # if joint_arc[18] > -75 * 3.14 / 180: qpos[7] = 0
+        qpos[0] = joint_arc[5] * 1.2
+        qpos[1] = joint_arc[7]
+        qpos[2] = joint_arc[8]
+        qpos[3] = joint_arc[9]
 
-        qpos[8] = joint_arc[11] * -1
-        qpos[9] = joint_arc[10] * -0.9
-        qpos[10] = joint_arc[9] * -0.9
-        qpos[11] = joint_arc[8] * -1
-        # if joint_arc[10] > -80 * 3.14 / 180: qpos[10] = 0
-        # if joint_arc[10] > -80 * 3.14 / 180: qpos[11] = 0
+        qpos[4] = joint_arc[20] * -1.2
+        qpos[5] = joint_arc[22]
+        qpos[6] = joint_arc[23]
+        qpos[7] = joint_arc[24]
 
-        qpos[12] = joint_arc[15] * -1
-        qpos[13] = joint_arc[14] * -0.9
-        qpos[14] = joint_arc[13] * -0.9
-        qpos[15] = joint_arc[12] * -1
-        # if joint_arc[14] > -80 * 3.14 / 180: qpos[14] = 0
-        # if joint_arc[14] > -80 * 3.14 / 180: qpos[15] = 0
+        qpos[8] = joint_arc[10] 
+        qpos[9] = joint_arc[12]
+        qpos[10] = joint_arc[13]
+        qpos[11] = joint_arc[14]
+
+        qpos[12] = joint_arc[15] * -1.5
+        qpos[13] = joint_arc[17]
+        qpos[14] = joint_arc[18]
+        qpos[15] = joint_arc[19]
         self.g_jointpositions = self.handcore.trans_to_motor_right(qpos)
 
     def speed_update(self):
@@ -103,45 +95,35 @@ class LeftHand:
         self.g_jointvelocity = [255] * length
         self.last_jointpositions = [255] * length
         self.last_jointvelocity = [255] * length
-        self.g_jointpositions[6:4] = [128, 128, 128, 128]
         self.handstate = [0] * length
 
     def joint_update(self, joint_arc):
         qpos = np.zeros(25)
-        qpos[16] = joint_arc[20] * 2    # 侧摆
-        qpos[17] = joint_arc[20] * 4    # 旋转 
-        qpos[18] = joint_arc[2] * -0.5  # 根部关节
-        qpos[19] = joint_arc[1] * -1  # 中部关节
-        qpos[20] = joint_arc[0] * -1  # 远端关节
+        qpos[16] = joint_arc[0]
+        qpos[17] = joint_arc[1] * 0.6
+        qpos[18] = joint_arc[2] * 0.5
+        qpos[19] = joint_arc[4]
+        qpos[20] = joint_arc[4]
 
-        qpos[0] = joint_arc[7] * -1
-        qpos[1] = joint_arc[6] * -0.9
-        qpos[2] = joint_arc[5] * -0.9
-        qpos[3] = joint_arc[4] * -1
-        # if joint_arc[6] > -80 * 3.14 / 180: qpos[2] = 0
-        # if joint_arc[6] > -80 * 3.14 / 180: qpos[3] = 0
+        qpos[0] = joint_arc[5] * 1.2
+        qpos[1] = joint_arc[7] *1.1
+        qpos[2] = joint_arc[8] *1.1
+        qpos[3] = joint_arc[9]
 
-        qpos[4] = joint_arc[19] * -1
-        qpos[5] = joint_arc[18] * -0.9
-        qpos[6] = joint_arc[17] * -0.9
-        qpos[7] = joint_arc[16] * -1
-        # if joint_arc[18] > -75 * 3.14 / 180: qpos[6] = 0
-        # if joint_arc[18] > -75 * 3.14 / 180: qpos[7] = 0
+        qpos[4] = joint_arc[20] * -1.2
+        qpos[5] = joint_arc[22] *1.1
+        qpos[6] = joint_arc[23] *1.1
+        qpos[7] = joint_arc[24]
 
-        qpos[8] = joint_arc[11] * -1
-        qpos[9] = joint_arc[10] * -0.9
-        qpos[10] = joint_arc[9] * -0.9
-        qpos[11] = joint_arc[8] * -1
-        # if joint_arc[10] > -80 * 3.14 / 180: qpos[10] = 0
-        # if joint_arc[10] > -80 * 3.14 / 180: qpos[11] = 0
+        qpos[8] = joint_arc[10] 
+        qpos[9] = joint_arc[12] *1.1
+        qpos[10] = joint_arc[13] *1.1
+        qpos[11] = joint_arc[14]
 
-        qpos[12] = joint_arc[15] * -1
-        qpos[13] = joint_arc[14] * -0.9
-        qpos[14] = joint_arc[13] * -0.9
-        qpos[15] = joint_arc[12] * -1
-        # if joint_arc[14] > -80 * 3.14 / 180: qpos[14] = 0
-        # if joint_arc[14] > -80 * 3.14 / 180: qpos[15] = 0
-
+        qpos[12] = joint_arc[15] * -1.5
+        qpos[13] = joint_arc[17] *1.1
+        qpos[14] = joint_arc[18] *1.1
+        qpos[15] = joint_arc[19]
         self.g_jointpositions = self.handcore.trans_to_motor_left(qpos)
 
     def speed_update(self):

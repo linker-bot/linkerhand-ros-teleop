@@ -3,7 +3,7 @@ from linkerhand.handcore import HandCore
 
 
 class RightHand:
-    def __init__(self, handcore: HandCore, length=7):
+    def __init__(self, handcore: HandCore, length=10):
         self.handcore = handcore
         self.g_jointpositions = [255] * length
         self.g_jointvelocity = [255] * length
@@ -13,19 +13,19 @@ class RightHand:
 
     def joint_update(self, joint_arc):
         qpos = np.zeros(25)
-        qpos[16] = joint_arc[20] * 1.2  # 侧摆
-        qpos[17] = joint_arc[20] * 2.4  # 旋转
+        qpos[16] = joint_arc[20] * 1  # 侧摆
+        qpos[17] = joint_arc[20] * 2.2144  # 旋转
         qpos[18] = joint_arc[2] * -0.3878  # 根部关节
         qpos[19] = joint_arc[1] * -0.66845 # 中部关节
-        qpos[20] = joint_arc[0] * -0.8 # 远端关节
-
+        qpos[20] = joint_arc[0] * -0.66845 # 远端关节
+        # print(qpos[16],qpos[17])
         qpos[0] = joint_arc[7]
-        qpos[1] = joint_arc[6] * -0.7
+        qpos[1] = joint_arc[6] * -1.0098
         qpos[2] = joint_arc[5] * -1
         qpos[3] = joint_arc[4] * -1
 
         qpos[4] = joint_arc[19]
-        qpos[5] = joint_arc[18] * -0.7
+        qpos[5] = joint_arc[18] * -1.077160
         qpos[6] = joint_arc[17] * -1
         qpos[7] = joint_arc[16] * -1
 
@@ -35,7 +35,7 @@ class RightHand:
         qpos[11] = joint_arc[8] * -1
 
         qpos[12] = joint_arc[15]
-        qpos[13] = joint_arc[14] * -0.7
+        qpos[13] = joint_arc[14] * -1.0098
         qpos[14] = joint_arc[13] * -1
         qpos[15] = joint_arc[12] * -1
         self.g_jointpositions = self.handcore.trans_to_motor_right(qpos)
@@ -89,7 +89,7 @@ class RightHand:
 
 
 class LeftHand:
-    def __init__(self, handcore: HandCore, length=7):
+    def __init__(self, handcore: HandCore, length=10):
         self.handcore = handcore
         self.g_jointpositions = [255] * length
         self.g_jointvelocity = [255] * length
@@ -107,7 +107,7 @@ class LeftHand:
 
         # 食指 index
         qpos[0] = joint_arc[7] * -1
-        qpos[1] = joint_arc[6] * -0.8
+        qpos[1] = joint_arc[6] * -0.6
         qpos[2] = joint_arc[5] * -1
         qpos[3] = joint_arc[4] * -1
 

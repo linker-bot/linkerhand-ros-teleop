@@ -1,5 +1,5 @@
 udp:
-  ip: 192.168.11.130
+  ip: 192.168.95.129
   port: 7000
   serverport: 5551
 humanset:
@@ -17,8 +17,8 @@ system:
     id: 40
     bitrate: 1000000
     dofs: 25
-  robotname_r: l30
-  robotname_l: l30
+  robotname_r: l21
+  robotname_l: l21
   retargeting_type: projection
   datasource_type: motion
   motion_type: udexreal
