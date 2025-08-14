@@ -109,7 +109,7 @@ class HandRetargetNode(Node):
             from linkerhand_retarget.motion.udexreal.retarget import Retarget
             self.retarget = Retarget(
                 self,
-                ip=self.retarget,
+                ip=self.udp_ip,
                 port=self.udp_port,
                 deviceid=self.motion_device,
                 righthand=self.robot_name_r,

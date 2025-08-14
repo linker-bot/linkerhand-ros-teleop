@@ -14,8 +14,8 @@ class RightHand:
 
     def joint_update(self, joint_arc):
         qpos = np.zeros(25)
-        qpos[16] = joint_arc[20] * 2    # 侧摆
-        qpos[17] = joint_arc[20] * 4    # 旋转 
+        qpos[16] = joint_arc[20] * 1.5    # 侧摆
+        qpos[17] = joint_arc[20] * 3    # 旋转 
         qpos[18] = joint_arc[2] * -0.5  # 根部关节
         qpos[19] = joint_arc[1] * -1  # 中部关节
         qpos[20] = joint_arc[0] * -1  # 远端关节
@@ -86,8 +86,9 @@ class RightHand:
                     if min_vel < 150:
                         self.handstate[i] = 1
             self.g_jointvelocity[i] = int(target_vel)
-            if self.g_jointvelocity[i] > 255:
-                self.g_jointvelocity[i] = 255
+            # if self.g_jointvelocity[i] > 255:
+            #     self.g_jointvelocity[i] = 255
+            self.g_jointvelocity[i] = 255
             self.last_jointvelocity[i] = self.g_jointvelocity[i]
             self.last_jointpositions[i] = self.g_jointpositions[i]
         self.g_jointvelocity[6] = 255
@@ -108,8 +109,8 @@ class LeftHand:
 
     def joint_update(self, joint_arc):
         qpos = np.zeros(25)
-        qpos[16] = joint_arc[20] * 2    # 侧摆
-        qpos[17] = joint_arc[20] * 4    # 旋转 
+        qpos[16] = joint_arc[20] * 1.5    # 侧摆
+        qpos[17] = joint_arc[20] * 3    # 旋转 
         qpos[18] = joint_arc[2] * -0.5  # 根部关节
         qpos[19] = joint_arc[1] * -1  # 中部关节
         qpos[20] = joint_arc[0] * -1  # 远端关节

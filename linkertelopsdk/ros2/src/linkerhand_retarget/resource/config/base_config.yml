@@ -1,6 +1,6 @@
 udp:
-  ip: 192.168.95.129
-  port: 7000
+  ip: 0.0.0.0
+  port: 8888
   serverport: 5551
 humanset:
   bodyfile: body_unity_pose
