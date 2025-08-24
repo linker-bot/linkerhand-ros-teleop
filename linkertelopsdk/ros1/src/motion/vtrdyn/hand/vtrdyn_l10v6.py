@@ -87,6 +87,7 @@ class RightHand:
             self.g_jointvelocity[i] = int(target_vel * 1)
             if self.g_jointvelocity[i] > 255:
                 self.g_jointvelocity[i] = 255
+            self.g_jointvelocity[i] = 255
             self.last_jointvelocity[i] = self.g_jointvelocity[i]
             self.last_jointpositions[i] = self.g_jointpositions[i]
 
@@ -173,5 +174,6 @@ class LeftHand:
             self.g_jointvelocity[i] = int(target_vel * 1)
             if self.g_jointvelocity[i] > 255:
                 self.g_jointvelocity[i] = 255
+            self.g_jointvelocity[i] = 255
             self.last_jointvelocity[i] = self.g_jointvelocity[i]
             self.last_jointpositions[i] = self.g_jointpositions[i]

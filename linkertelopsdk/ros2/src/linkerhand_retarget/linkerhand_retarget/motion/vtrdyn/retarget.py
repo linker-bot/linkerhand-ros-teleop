@@ -41,7 +41,7 @@ class Retarget:
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l10v6 :
             from .hand.vtrdyn_l10v6 import RightHand
-            self.righthand = LeftHand(handcore, length=ROBOT_LEN_MAP[righthand])        
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])        
         elif self.righthandtype == RobotName.l10 \
             or self.righthandtype == RobotName.l10v7 :
             from .hand.vtrdyn_l10v7 import RightHand
@@ -96,6 +96,7 @@ class Retarget:
         if self.udp_datacapture.udp_initial(2223):
             self.dstAddr = self.udp_datacapture.udp_getsockaddr(self.udp_ip, self.udp_port)
             self.node.get_logger().info(f"UDP连接初始化成功 -> 目标地址: {self.udp_ip}:{self.udp_port}")
+            self.udp_datacapture.udp_send_request_connect(self.dstAddr)
             return True
         else:
             self.node.get_logger().error("UDP连接初始化失败！")
@@ -105,8 +106,7 @@ class Retarget:
     def process_callback(self):
         if not self.runing:
             return
-        self.udp_datacapture.udp_send_request_connect(self.dstAddr)
-
+        
         """定时器回调函数，处理数据并发布"""
         if not self.udp_datacapture.udp_is_onnect():
             self.node.get_logger().warning("侦测到UDP断开状态，正在重连！")

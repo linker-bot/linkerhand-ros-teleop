@@ -45,8 +45,8 @@ class Retarget:
             from .hand.udexreal_l20 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l10v6 :
-            from .hand.udexreal_l10v6 import LeftHand
-            self.righthand = LeftHand(handcore, length=ROBOT_LEN_MAP[righthand])        
+            from .hand.udexreal_l10v6 import RightHand
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])        
         elif self.righthandtype == RobotName.l10 \
             or self.righthandtype == RobotName.l10v7 :
             from .hand.udexreal_l10v7 import RightHand
