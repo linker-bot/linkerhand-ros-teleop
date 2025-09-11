@@ -33,6 +33,12 @@ class Retarget:
             or self.righthandtype == RobotName.o7v2:
             from .hand.vtrdyn_l7 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
+        elif self.righthandtype == RobotName.o6:
+            from .hand.vtrdyn_o6 import RightHand
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
+        elif self.righthandtype == RobotName.l6:
+            from .hand.vtrdyn_l6 import RightHand
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         elif self.righthandtype == RobotName.l25:
             from .hand.vtrdyn_l25 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
@@ -56,6 +62,12 @@ class Retarget:
             or self.lefthandtype == RobotName.o7v1 \
             or self.lefthandtype == RobotName.o7v2:
             from .hand.vtrdyn_l7 import LeftHand
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+        elif self.lefthandtype == RobotName.o6:
+            from .hand.vtrdyn_o6 import LeftHand
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+        elif self.lefthandtype == RobotName.l6:
+            from .hand.vtrdyn_l6 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l25:
             from .hand.vtrdyn_l25 import LeftHand
@@ -106,7 +118,7 @@ class Retarget:
     def process_callback(self):
         if not self.runing:
             return
-        
+
         """定时器回调函数，处理数据并发布"""
         if not self.udp_datacapture.udp_is_onnect():
             self.node.get_logger().warning("侦测到UDP断开状态，正在重连！")

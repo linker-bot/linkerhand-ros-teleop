@@ -17,8 +17,8 @@ system:
     id: 40
     bitrate: 1000000
     dofs: 25
-  robotname_r: l21
-  robotname_l: l21
+  robotname_r: o6
+  robotname_l: o6
   retargeting_type: projection
   datasource_type: motion
   motion_type: udexreal

@@ -32,8 +32,11 @@ class Retarget:
             or self.righthandtype == RobotName.o7v2:
             from .hand.udexreal_l7 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
-        elif self.righthandtype == RobotName.o7:
-            from .hand.udexreal_l7 import RightHand
+        elif self.righthandtype == RobotName.o6:
+            from .hand.udexreal_o6 import RightHand
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
+        elif self.righthandtype == RobotName.l6:
+            from .hand.udexreal_l6 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         # elif self.righthandtype == RobotName.l25:
         #     from .hand.udexreal_l25 import RightHand
@@ -61,8 +64,11 @@ class Retarget:
             or self.lefthandtype == RobotName.o7v2:
             from .hand.udexreal_l7 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
-        elif self.lefthandtype == RobotName.o7:
-            from .hand.udexreal_l7 import LeftHand
+        elif self.lefthandtype == RobotName.o6:
+            from .hand.udexreal_o6 import LeftHand
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+        elif self.lefthandtype == RobotName.l6:
+            from .hand.udexreal_l6 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l25:
             from .hand.udexreal_l25 import LeftHand

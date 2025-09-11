@@ -28,8 +28,11 @@ class Retarget():
             or self.righthandtype == RobotName.o7v2:
             from .hand.udexreal_l7 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
-        elif self.righthandtype == RobotName.o7:
-            from .hand.udexreal_l7 import RightHand
+        elif self.righthandtype == RobotName.o6:
+            from .hand.udexreal_o6 import RightHand
+            self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
+        elif self.righthandtype == RobotName.l6:
+            from .hand.udexreal_l6 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
         # elif self.righthandtype == RobotName.l25:
         #     from .hand.udexreal_l25 import RightHand
@@ -51,15 +54,18 @@ class Retarget():
             from .hand.udexreal_l21 import RightHand
             self.righthand = RightHand(handcore, length=ROBOT_LEN_MAP[righthand])
 
-        # 根据左手类型初始化
+        # 根据LEFT手类型初始化
         if self.lefthandtype == RobotName.o7 \
             or self.lefthandtype == RobotName.l7 \
             or self.lefthandtype == RobotName.o7v1 \
             or self.lefthandtype == RobotName.o7v2:
             from .hand.udexreal_l7 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
-        elif self.lefthandtype == RobotName.o7:
-            from .hand.udexreal_l7 import LeftHand
+        elif self.lefthandtype == RobotName.o6:
+            from .hand.udexreal_o6 import LeftHand
+            self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
+        elif self.lefthandtype == RobotName.l6:
+            from .hand.udexreal_l6 import LeftHand
             self.lefthand = LeftHand(handcore, length=ROBOT_LEN_MAP[lefthand])
         elif self.lefthandtype == RobotName.l25:
             from .hand.udexreal_l25 import LeftHand
@@ -131,9 +137,9 @@ class Retarget():
         self.righthand.speed_update()
 
         # 调试打印
-        if self.lefthandpubprint and self.pubprintcount % 5 == 0:
+        if self.lefthandpubprint and self.pubprintcount % 1 == 0:
             self.node.get_logger().info(f"左手位置: {self.lefthand.g_jointpositions}")
-        if self.righthandpubprint and self.pubprintcount % 5 == 0:
+        if self.righthandpubprint and self.pubprintcount % 1 == 0:
             self.node.get_logger().info(f"右手位置: {self.righthand.g_jointpositions}")
 
         # 发布右手数据
@@ -157,7 +163,7 @@ class Retarget():
     def process(self):
         """主处理函数"""
         if not self.initialize_udp():
-            self.node.get_logger().error("初始化配置网络失败")
+            self.get_logger().error("初始化配置网络失败")
             return
 
         rclpy.spin(self.node)
