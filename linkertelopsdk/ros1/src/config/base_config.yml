@@ -1,5 +1,5 @@
 udp:
-  ip: 192.168.95.129
+  ip: 192.168.11.88
   port: 8888
   serverport: 5551
 humanset:
@@ -17,11 +17,11 @@ system:
     id: 40
     bitrate: 1000000
     dofs: 25
-  robotname_r: l10v6
-  robotname_l: l10v6
+  robotname_r: o6
+  robotname_l: o6
   retargeting_type: projection
   datasource_type: motion
-  motion_type: udexreal
+  motion_type: vtrdyn
   motion_device: eric
   rightpub: true
   leftpub: true
