@@ -57,7 +57,7 @@ pip uninstall linkerhand
 ```
 
 ```
-pip install linkerhand-2.6.3-cp38-cp38-linux_aarch64.whl
+pip install linkerhand-2.6.8-cp38-cp38-linux_aarch64.whl
 ```
 
 ### 安装遥操重定向程序
