@@ -36,7 +36,7 @@
 可通过如下链接进行下载
 
 ```
-git clone https://github.com/linkerbotai/linker_telop_sdk.git
+git clone https://github.com/linker-bot/linkerhand-ros-teleop.git
 cd linkertelopsdk
 ```
 
